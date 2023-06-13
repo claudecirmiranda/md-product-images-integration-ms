@@ -1,0 +1,90 @@
+server:
+  port: 1111
+camel.springboot.main-run-controller: true
+spring:
+  application:
+     name: md-product-images-integration-ms
+  data:
+    mongodb:
+      uri: mongodb://ADMIN:12Uj9k6i-wtXXLVtLV@g6410680566b868-prdnagemmongodb.adb.sa-saopaulo-1.oraclecloudapps.com:27017/ADMIN?authMechanism=PLAIN&readPreference=primary&authSource=%24external&appname=MongoDB+Compass&retryWrites=false&loadBalanced=true&ssl=true
+
+  kafka:
+  producer:
+    bootstrap-servers: localhost:9092
+    group-id: md-product-images-integration-ms-
+    value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    auto-commit-interval: 3000
+  security:
+    protocol: PLAINTEXT
+  properties:
+    session:
+      timeout:
+        ms: 10000
+        
+camel:
+  component:
+    servlet:
+      mapping:
+        context-path: /*
+
+  opentracing:
+    enabled: true
+
+opentracing:
+  jaeger:
+    http-sender:
+      url: #http://JAEGER_HOST:JAEGER_PORT/api/traces
+    enabled: true
+    service-name: md-product-images-integration-ms 
+topic-producer: ext-image-stream
+url.product: https://api2.nagem.com.br/api/products/product/
+
+ 
+
+image:
+  ftp:
+    server: 192.168.203.169
+    port: 21
+    user: integra_oci
+    pass: P@ssw0rd
+    remoteDirPath: "/"
+
+
+batchSize-Db: 2000
+delaySeconds-Db: 7 
+batchSize-ftp: 5000
+delaySeconds-ftp: 500
+
+ 
+
+ 
+
+# APPLICATION VARIABLES
+# APP_PORT
+# DB_NAME
+# DB_URI
+# KAFKA_BROKERS
+# KAFKA_USERNAME
+# KAFKA_PASSWORD
+# OCC_AUTH_URL
+# OCC_AUTH_AUTENTIC
+# PIX_GATEWAY
+# BANKSLIP_HOST_BRASPAG
+# CREDITCARD_HOST_BRASPAG
+# MERCHANTID_BRASPAG
+# MERCHANTKEY_BRASPAG
+# CLEARSALE_HOST
+# CLEARSALE_AUTH_URL
+# CLEARSALE_AUTH_USER
+# CLEARSALE_AUTH_PASSWORD
+# CLEARSALE_MERCHANTID
+# CLEARSALE_MERCHANTKEY
+# SERVER_HOST
+# ASSURANT_URL
+# ASSURANT_SECRET
+# BANKSLIP_BRASPAG_API
+# IMG_TIMER
+# JAEGER_HOST
+# JAEGER_PORT
+# NAMESPACE
+# BUCKETNAME

@@ -1,0 +1,12 @@
+trigger: none
+resources:
+  repositories:
+  - repository: azure-pipelines
+    type: git
+    name: Interligação OCC - Grupo Mult/azure-pipelines
+name: $(Rev:r)
+variables:
+- group: QA-Application-Variables
+- group: PRD-Application-Variables
+jobs:
+- template: Validation.yaml@azure-pipelines

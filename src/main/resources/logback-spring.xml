@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<!-- span_id=%X{span_id} trace_flags=%X{trace_flags} -->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<filter class="br.com.nagem.filters.TraceLogFilter">
+			<name>${trace_id}</name>
+		</filter>
+		<encoder>
+			<pattern>time=%d{yyyy-MM-dd HH:mm:ss} - level=%-5level - [thread=%thread]: file=%logger{36} - %msg %X{trace_id} %n</pattern>
+		</encoder>
+	</appender>
+
+	<root level="INFO">
+		<appender-ref ref="STDOUT" />
+	</root>
+
+
+	<springProfile name="hm">
+		<!-- configuration to be enabled when the "Homologation" profile is active -->
+		<logger name="org.springframework.web" level="INFO" />
+		<logger name="org.springframework.sql" level="DEBUG" />
+	</springProfile>
+
+	<springProfile name="dev | stg">
+		<!-- configuration to be enabled when the "dev" or "staging" profiles are active -->
+		<logger name="br.com.nagem" level="DEBUG" />
+		<logger name="org.springframework.web" level="INFO" />
+		<logger name="org.springframework.sql" level="INFO" />
+		<logger name="org.apache.http" level="INFO" />
+		<logger name="org.apache.http.wire" level="ERROR" />
+	</springProfile>
+
+	<springProfile name="prod">
+		<!-- configuration to be enabled when the "production" profile is not active -->
+		<logger name="br.com.nagem" level="INFO" />
+		<logger name="org.springframework.web.filter.CommonsRequestLoggingFilter" level="INFO" />
+		<logger name="org.springframework.web" level="INFO" />
+		<logger name="org.springframework.sql" level="ERROR" />
+		<logger name="org.apache.http" level="INFO" />
+		<logger name="org.apache.http.wire" level="ERROR" />
+	</springProfile>
+
+
+</configuration>
